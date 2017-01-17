@@ -1,0 +1,71 @@
+{% load staticfiles %}
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="//fonts.googleapis.com/css?family=Ubuntu&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+        <!-- Bootstrap -->
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" media="screen">
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/jquery-3.1.1.min.js' %}"></script>
+
+        <link rel="stylesheet" href="{% static 'css/school1.css' %}">
+        <style type="text/css">
+            body{ padding: 70px 0px; }
+        </style>
+        <title>School</title>
+    </head>
+    
+    <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project::Jeff/School</a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="/school/">Admin</a></a></li>
+            <li class="active"><a href="/school/users/logout">Logout</a></a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+
+    <div class="container">
+        <div class="students index">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="page-header">
+                    <h1>Students</h1>
+                </div>
+            </div><!-- end col md 12 -->
+        </div><!-- end row -->
+
+    <div class="row">
+
+        <div class="col-md-3">
+            <div class="actions">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Management</div>
+                        <div class="panel-body">
+                            <ul class="nav nav-pills nav-stacked">
+                                <li><a href="{% url 'student_list' %}"><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;List Students</a>
+                                <li><a href="{% url 'student_new' %}"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;New Student</a></li>
+                            </ul>
+                        </div><!-- end body -->
+                </div><!-- end panel -->
+            </div><!-- end actions -->
+        </div><!-- end col md 3 -->
+  
+                    {% block content %}
+                    {% endblock %}    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

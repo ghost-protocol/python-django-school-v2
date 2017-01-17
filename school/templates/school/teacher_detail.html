@@ -1,0 +1,70 @@
+{% extends 'school/base_teacher.html' %}
+
+{% block content %}
+    <div class="teacher">
+    <a class="btn btn-default" href=""><span class="glyphicon glyphicon-arrow-left"></span></a>
+    <a class="btn btn-default" href="{% url 'teacher_edit' pk=teacher.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href=""><span class="glyphicon glyphicon-trash"></span></a>
+    <p></p>
+    <p></p>
+    <div class="col-md-9">          
+            <table cellpadding="0" cellspacing="0" class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Firstname</th>
+                        <td>{{ teacher.lastname }}&nbsp;</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Middlename</th>
+                        <td>{{ teacher.middlename }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Lastname</th>
+                        <td>{{ teacher.firstname }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Date Of Birth</th>
+                        <td>{{ teacher.dateofbirth }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Gender</th>
+                        <td>{{ teacher.gender }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Residence</th>
+                        <td>{{ teacher.residence }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Address</th>
+                        <td>{{ teacher.address }}&nbsp;</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Contact</th>
+                        <td>{{ teacher.contact }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Created</th>
+                        <td>{{ teacher.created }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Modified</th>
+                        <td>{{ teacher.modified }}&nbsp;</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div><!-- end col md 9 -->
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'school/base_grade.html' %}
+
+{% block content %}
+    <div class="grade">
+    <a class="btn btn-default" href=""><span class="glyphicon glyphicon-arrow-left"></span></a>
+    <a class="btn btn-default" href=""><span class="glyphicon glyphicon-trash"></span></a>
+    <p></p>
+    <p></p>
+    <div class="col-md-9">          
+            <table cellpadding="0" cellspacing="0" class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Student</th>
+                        <td>{{ grade.student }}&nbsp;</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Subject</th>
+                        <td>{{ grade.subject }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Class</th>
+                        <td>{{ grade.sclass }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Classtest1</th>
+                        <td>{{ grade.classtest1 }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Classtest2</th>
+                        <td>{{ grade.classtest2 }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Groupwork</th>
+                        <td>{{ grade.groupwork }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Projectwork</th>
+                        <td>{{ grade.projectwork }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Total50</th>
+                        <td>{{ grade.total50 }}&nbsp;</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>examsscore</th>
+                        <td>{{ grade.examsscore }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>exams50</th>
+                        <td>{{ grade.exams50 }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>total100</th>
+                        <td>{{ grade.total100 }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Created</th>
+                        <td>{{ grade.created }}&nbsp;</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div><!-- end col md 9 -->
+
+    </div>
+</div>
+{% endblock %}

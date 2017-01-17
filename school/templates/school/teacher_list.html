@@ -1,0 +1,42 @@
+{% extends 'school/base_teacher.html' %}
+{% block content %}    
+
+<div class="col-md-9">
+<table cellpadding="0" cellspacing="0" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Full Name</th>
+            <th>Date Of Birth</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Contact</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for teacher in teachers %}
+        <tr>
+            <td>
+            <a href="{% url 'teacher_detail' pk=teacher.pk %}">{{ teacher.lastname }} {{ teacher.firstname }} {{ teacher.middlename }}</a>
+            </td>
+            <td>{{ teacher.dateofbirth }}</td>
+            <td>{{ teacher.gender }}</td>
+            <td>{{ teacher.email }}</td>
+            <td>{{ teacher.contact }}</td>
+            <td>
+            <a class="btn btn-default" href="{% url 'teacher_detail' pk=teacher.pk %}"><span class="glyphicon glyphicon-search"></span></a>
+            <a class="btn btn-default" href="{% url 'teacher_edit' pk=teacher.pk %}"><span class="glyphicon glyphicon-edit"></span></a>
+            <a class="btn btn-default" href=""><span class="glyphicon glyphicon-trash"></span></a>
+            </td>
+        <!-- <td>{{ teacher.text|linebreaksbr }}</td> -->
+        </tr>
+            {% endfor %}
+        {% endblock %}
+    
+    </tbody>
+    </div> <!-- end col md 9 -->
+    </div><!-- end row -->
+    </div><!-- end containing of content -->
+    </div><!-- /.container -->
+</table>

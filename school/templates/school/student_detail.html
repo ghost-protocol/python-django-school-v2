@@ -1,0 +1,87 @@
+{% extends 'school/base_student.html' %}
+
+{% block content %}
+    <div class="student">
+        <!-- {% if student.published_date %} -->
+            <!-- <div class="date"> -->
+                <!-- {{ post.published_date }} -->
+            <!-- </div> -->
+        <!-- {% endif %} -->
+<!--             <a class="btn btn-default" href=""><span class="glyphicon glyphicon-pencil"></span></a>
+            <p><label>Name: </label>{{ student.firstname }} {{ student.middlename }} {{ student.lastname }}</p>
+            <p><label>Date Of Birth: </label>{{ student.dateofbirth }}</p>
+            <p><label>Gender: </label>{{ student.gender }}</p>
+            <p><label>Residence: </label>{{ student.residence }}</p>
+            <p><label>Address: </label>{{ student.address }}</p>
+            <p><label>Contact: </label>{{ student.contact }}</p>
+            <p><label>Email: </label>{{ student.email }}</p>
+            <p><label>Created Date: </label>{{ student.created}}</p>
+            <p><label>Modified Date: </label>{{ student.modified }}</p>      
+    </div>
+ -->
+    <a class="btn btn-default" href=""><span class="glyphicon glyphicon-arrow-left"></span></a>
+    <a class="btn btn-default" href="{% url 'student_edit' pk=student.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href=""><span class="glyphicon glyphicon-trash"></span></a>
+    <p></p>
+    <p></p>
+    <div class="col-md-9">          
+            <table cellpadding="0" cellspacing="0" class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Firstname</th>
+                        <td>{{ student.lastname }}&nbsp;</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Middlename</th>
+                        <td>{{ student.middlename }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Lastname</th>
+                        <td>{{ student.firstname }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Date Of Birth</th>
+                        <td>{{ student.dateofbirth }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Gender</th>
+                        <td>{{ student.gender }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Residence</th>
+                        <td>{{ student.residence }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Address</th>
+                        <td>{{ student.address }}&nbsp;</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Contact</th>
+                        <td>{{ student.contact }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Created</th>
+                        <td>{{ student.created }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Modified</th>
+                        <td>{{ student.modified }}&nbsp;</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div><!-- end col md 9 -->
+
+    </div>
+</div>
+{% endblock %}
