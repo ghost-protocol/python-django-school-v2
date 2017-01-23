@@ -10,6 +10,13 @@ GENDER_CHOICES = (
     ('Female', 'Female'),
 )
 
+QUARTER_CHOICES = (
+    ('1st', '1st'),
+    ('2nd', '2nd'),
+    ('3rd', '3rd'),
+    ('4th', '4th'),
+)
+
 class Student(models.Model):
     firstname = models.CharField(max_length=100)
     middlename = models.CharField(max_length=100, blank=True, null=True)
@@ -67,11 +74,34 @@ class Subject(models.Model):
     def __str__(self):
     	return self.name
 
-class TeacherClass(models.Model):
-    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
-    tclass =  models.CharField(max_length=5)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-    created = models.DateTimeField(default=timezone.now)    
+class StudentClass(models.Model):
+    name =  models.CharField(max_length=50)
 
     def __str__(self):
-        return "%s %s %s" % (self.teacher, self.subject, self.tclass)
+        return self.name
+
+# class TeacherClass(models.Model):
+#     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
+#     tclass =  models.ForeignKey(Teacher, on_delete=models.CASCADE)
+#     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+#     created = models.DateTimeField(default=timezone.now)
+
+#     def __str__(self):
+#         return "%s %s %s" % (self.teacher, self.subject, self.tclass)
+
+#????????????????
+class Summary(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    sclass = models.CharField(max_length=5, blank=True, null=True)
+    total100 = models.DecimalField(max_digits=8, decimal_places=3, blank=True, null=True)
+    totalaverage = models.DecimalField(max_digits=8, decimal_places=3, blank=True, null=True)
+    quarter = models.CharField(max_length=8, choices=QUARTER_CHOICES,default='1st',blank=True, null=True)
+    attendance = models.CharField(max_length=10, blank=True, null=True)
+    outof = models.CharField(max_length=10, blank=True, null=True)
+    comments_classteacher = models.TextField(blank=True, null=True)
+    comments_headteacher = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return "%s %s %s" % (self.student, self.sclass)
+
+#ALTER TABLE summary ADD UNIQUE

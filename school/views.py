@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 
-from .models import Student, Teacher, Grade, TeacherClass
+from .models import Student, Teacher, Grade
 
 from .forms import StudentForm, TeacherForm, GradeForm, SearchForm
 
@@ -137,7 +137,6 @@ def grade_filter(request):
     if request.method == "GET":
         subject = request.GET.get('subject','')
         sclass = request.GET.get('sclass','')
-        # grades = Grade.objects.filter(subject=subject, sclass=sclass)
 
         if request.user.is_superuser:
 		grades = Grade.objects.filter(subject=subject, sclass=sclass)
@@ -160,11 +159,20 @@ def grade_filter(request):
     # return render(request, 'school/position_list.html', {'grades': grades})
 
 def position_list(request):
-    cursor = connection.cursor()
-    subject = 'Maths'
+    if request.method == "GET":
+        subject = request.GET.get('subject','')
+        sclass = request.GET.get('sclass','')
+        cursor = connection.cursor()
+        query = "SELECT sg.id, ss.firstname, ss.lastname, sg.student_id, sg.subject, sg.sclass, sg.examsscore, sg.total100, FIND_IN_SET(total100, (SELECT GROUP_CONCAT(DISTINCT total100 ORDER BY total100 DESC) FROM school_grade WHERE subject = %s AND sclass = %s )) AS RANK FROM school_grade sg, school_student ss WHERE sg.subject = %s AND sg.sclass = %s and ss.id = sg.student_id order by sg.total100 desc"
+        cursor.execute(query, (subject, sclass, subject, sclass))
+        grades = cursor.fetchall()
+        return render(request, 'school/position_list.html', {'grades': grades})
+    # grades = cursor.fetchall()
+    # cursor = connection.cursor()
+    # subject = 'Maths'
     # sclass  = '1A'
-    # ("SELECT sg.id, ss.firstname, ss.lastname, sg.student_id, sg.subject, sg.sclass, sg.examsscore, sg.total100, FIND_IN_SET(total100, (SELECT GROUP_CONCAT(DISTINCT total100 ORDER BY total100 DESC) FROM school_grade WHERE subject = 'Maths' AND sclass = '1A')) AS RANK FROM school_grade sg, school_student ss WHERE sg.subject = 'Maths' AND sg.sclass = '1A' and ss.id = sg.student_id order by sg.total100 desc")
-    cursor.execute("SELECT sg.id, ss.firstname, ss.lastname, sg.student_id, sg.subject, sg.sclass, sg.examsscore, sg.total100, FIND_IN_SET(total100, (SELECT GROUP_CONCAT(DISTINCT total100 ORDER BY total100 DESC) FROM school_grade WHERE subject = 'Maths' AND sclass = '1A')) AS RANK FROM school_grade sg, school_student ss WHERE sg.subject = 'Maths' AND sg.sclass = '1A' and ss.id = sg.student_id order by sg.total100 desc")
-    grades = cursor.fetchall()
-    # return HttpResponse(grades)
-    return render(request, 'school/position_list.html', {'grades': grades})
+    # query = "SELECT sg.id, ss.firstname, ss.lastname, sg.student_id, sg.subject, sg.sclass, sg.examsscore, sg.total100, FIND_IN_SET(total100, (SELECT GROUP_CONCAT(DISTINCT total100 ORDER BY total100 DESC) FROM school_grade WHERE subject = %s AND sclass = %s )) AS RANK FROM school_grade sg, school_student ss WHERE sg.subject = %s AND sg.sclass = %s and ss.id = sg.student_id order by sg.total100 desc"
+    # cursor.execute(query, (subject, sclass, subject, sclass))
+    # grades = cursor.fetchall()
+    # return render(request, 'school/position_list.html', {'grades': grades})
+    

@@ -1,4 +1,4 @@
-{% extends 'school/base_grade.html' %}
+{% extends 'school/base_position.html' %}
 {% load utility_tags %}
 
 {% block content %}
@@ -7,7 +7,7 @@
 
 
 <div class="form-group">
-<form name="form" action="{% url 'grade_filter' %}" method="GET">{% csrf_token %}
+<form name="form" action="{% url 'position_list' %}" method="GET">{% csrf_token %}
 
 <label for="subject" class="control-label  requiredField">Subject</label>
   <select class="form-control" name="subject">
