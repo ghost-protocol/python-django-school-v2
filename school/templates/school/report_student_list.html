@@ -1,24 +1,10 @@
-{% extends 'school/base_position.html' %}
-{% load utility_tags %}
-
-{% block content %}
+{% extends 'school/base_grade.html' %}
+{% block content %}    
 
 <div class="col-md-9">
 
-
 <div class="form-group">
-<form name="form" action="{% url 'position_list' %}" method="GET">{% csrf_token %}
-
-<label for="subject" class="control-label  requiredField">Subject</label>
-  <select class="form-control" name="subject">
-      <option value="Maths">Maths</option>
-      <option value="Science">Science</option>
-      <option value="English">English</option>
-      <option value="ICT">ICT</option>
-      <option value="French">French</option>
-  </select>
-
-<p></p>
+<form name="form" action="{% url 'report_student_list' %}" method="GET">{% csrf_token %}
 
 <label for="subject" class="control-label  requiredField">Class</label>
   <select class="form-control" name="sclass">
@@ -47,27 +33,25 @@
             <th>Class</th>
             <th>Examsscore</th>
             <th>Total100</th>
-            <th>Position</th>
             <th>Action</th>
         </tr>
     </thead>
     <tbody>
         {% for grade in grades %}
-
         <tr>
-            <td><a href="">{{ grade.1 }} {{ grade.2 }}</a></td>
-            <td>{{ grade.4 }}</td>
-            <td>{{ grade.5 }}</td>
-            <td>{{ grade.6 }}</td>
-            <td>{{ grade.7 }}</td>
-            <td>{{ grade.8 }}</td>
+            <td><a href="">{{ grade.student }}</a></td>
+            <td>{{ grade.subject }}</td>
+            <td>{{ grade.sclass }}</td>
+            <td>{{ grade.examsscore }}</td>
+            <td>{{ grade.total100 }}</td>
             <td>
-            <a class="btn btn-default" href=""><span class="glyphicon glyphicon-edit"></span></a>
-            <a class="btn btn-default" href=""><span class="glyphicon glyphicon-trash"></span></a>
-            </td>
+            <a class="btn btn-default" href="{% url 'comment' grade.student_id%}"> pdf </span></a>
+            <!-- <a class="btn btn-default" href=""><span class="glyphicon glyphicon-search"></span></a> -->
+<!--             <a class="btn btn-default" href=""><span class="glyphicon glyphicon-trash"></span></a>
+ -->            </td>
         <!-- <td>{{ grade.text|linebreaksbr }}</td> -->
         </tr>
-          {% endfor %}
+            {% endfor %}
         {% endblock %}
     
     </tbody>

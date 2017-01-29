@@ -2,6 +2,7 @@ from django import forms
 from .models import Student
 from .models import Teacher
 from .models import Grade
+from .models import Comment
 from django.contrib.auth.forms import AuthenticationForm 
 
 
@@ -160,3 +161,31 @@ class RegistrationForm(forms.Form):
   password1 = forms.CharField(label="Password", max_length=30, widget=forms.PasswordInput())
   password2 = forms.CharField(label='Password(Again)', max_length=30, widget=forms.PasswordInput())
   role     = forms.CharField(label="role", max_length=30, widget=forms.TextInput(attrs={'class': 'form-control', 'name': 'role'}))
+
+class CommentForm(forms.ModelForm):
+  class Meta:
+        model = Comment
+        fields = [
+            'student',
+            'sclass',
+            'total100',
+            'totalaverage',
+            'quarter',
+            'attendance',
+            'outof',
+            'comments_classteacher',
+            'comments_headteacher',
+        ]
+  def __init__(self, *args, **kwargs):
+       super(CommentForm, self).__init__(*args, **kwargs)
+       self.helper = FormHelper()
+       self.helper.form_id = 'id-comment-form'
+       self.helper.form_method = 'post'
+       self.helper.add_input(Submit('submit', 'Submit', css_class='btn-success'))
+       self.helper.form_class = 'form-horizontal'
+       # self.helper.Field('student', readonly=True)
+       # self.fields['student'].widget.attrs['readonly'] = True
+       # self.helper.layout = Layout('student', readonly=True)
+
+
+  

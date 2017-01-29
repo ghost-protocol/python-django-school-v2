@@ -27,6 +27,7 @@
             <td>
             <a class="btn btn-default" href="{% url 'student_detail' pk=student.pk %}"><span class="glyphicon glyphicon-search"></span></a>
             <a class="btn btn-default" href="{% url 'student_edit' pk=student.pk %}"><span class="glyphicon glyphicon-edit"></span></a>
+            <a class="btn btn-default" href="{% url 'comment' student.id %}"><span class="glyphicon glyphicon-file"></span></a>
             <a class="btn btn-default" href=""><span class="glyphicon glyphicon-trash"></span></a>
             </td>
         <!-- <td>{{ student.text|linebreaksbr }}</td> -->

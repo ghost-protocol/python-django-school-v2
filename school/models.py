@@ -17,6 +17,13 @@ QUARTER_CHOICES = (
     ('4th', '4th'),
 )
 
+CLASS_CHOICES = (
+    ('1A', '1A'),
+    ('1B', '1B'),
+    ('2A', '2A'),
+    ('2B', '2B'),
+)
+
 class Student(models.Model):
     firstname = models.CharField(max_length=100)
     middlename = models.CharField(max_length=100, blank=True, null=True)
@@ -90,9 +97,10 @@ class StudentClass(models.Model):
 #         return "%s %s %s" % (self.teacher, self.subject, self.tclass)
 
 #????????????????
-class Summary(models.Model):
+class Comment(models.Model):
     student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    sclass = models.CharField(max_length=5, blank=True, null=True)
+    # sclass = models.CharField(max_length=5, blank=True, null=True)
+    sclass = models.CharField(max_length=8, choices=CLASS_CHOICES,default='1A')
     total100 = models.DecimalField(max_digits=8, decimal_places=3, blank=True, null=True)
     totalaverage = models.DecimalField(max_digits=8, decimal_places=3, blank=True, null=True)
     quarter = models.CharField(max_length=8, choices=QUARTER_CHOICES,default='1st',blank=True, null=True)

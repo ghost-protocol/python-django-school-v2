@@ -1,3 +1,7 @@
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponse
+from django.template.loader import render_to_string
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -12,9 +16,11 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 
-from .models import Student, Teacher, Grade
+from .models import Student, Teacher, Grade, Comment
 
-from .forms import StudentForm, TeacherForm, GradeForm, SearchForm
+from .forms import StudentForm, TeacherForm, GradeForm, SearchForm, CommentForm
+
+from easy_pdf.views import PDFTemplateView
 
 # this login required decorator is to not allow to any  
 # view without authenticating
@@ -95,6 +101,7 @@ def teacher_edit(request, pk):
     return render(request, 'school/teacher_edit.html', {'form': form})
 ##########################################################
 #############################grade
+@login_required(login_url="login/grades/")
 def grade_list(request):
 	if request.user.is_superuser:
 		grades = Grade.objects.order_by('student')
@@ -139,8 +146,8 @@ def grade_filter(request):
         sclass = request.GET.get('sclass','')
 
         if request.user.is_superuser:
-		grades = Grade.objects.filter(subject=subject, sclass=sclass)
-		return render(request, 'school/grade_list.html', {'grades': grades})
+            grades = Grade.objects.filter(subject=subject, sclass=sclass)
+            return render(request, 'school/grade_list.html', {'grades': grades})
 	else:
 		grades = Grade.objects.filter(user = User.objects.get(username=request.user), subject=subject, sclass=sclass).order_by('student')
 		return render(request, 'school/grade_list.html', {'grades': grades})
@@ -175,4 +182,65 @@ def position_list(request):
     # cursor.execute(query, (subject, sclass, subject, sclass))
     # grades = cursor.fetchall()
     # return render(request, 'school/position_list.html', {'grades': grades})
+
+def report_student_list(request):
+    if request.method == "GET":
+        # subject = request.GET.get('subject','')
+        sclass = request.GET.get('sclass','')
+
+        grades = Grade.objects.filter(sclass=sclass)
+        return render(request, 'school/report_student_list.html', {'grades': grades})
+
+def comment(request, student_id):
+    comment = get_object_or_404(Comment, student_id=student_id)
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            # post.author = request.user
+            # comment.modified = timezone.now()
+            comment.save()
+            return redirect('comment_detail', student_id=student_id)
+    else:
+        form = CommentForm(instance=comment)
+        return render(request, 'school/comment.html', {'form': form})
+
+def comment_detail(request, student_id):
+    comment = get_object_or_404(Comment, student_id=student_id)
+    # grades = get_object_or_404(Grade, student_id=student_id)
+    grades = Grade.objects.filter(student_id=student_id)
+    return render(request, 'school/comment_detail.html', {'comment': comment, 'grades': grades})
+
+
+# class HelloPDFView(PDFTemplateView):
+#     template_name = "hello.html"
+
+#     def get_context_data(self, **kwargs):
+#         return super(HelloPDFView, self).get_context_data(
+#             pagesize="A4",
+#             title="Hi there!",
+#             **kwargs
+#         )
     
+
+
+# def report_student_list(request):
+#     if request.method == "GET":
+#         # subject = request.GET.get('subject','')
+#         # sclass = request.GET.get('sclass','')
+
+#         # if request.user.is_superuser:
+#         #   grades = Grade.objects.filter(sclass=sclass)  
+#         #   return render(request, 'school/report_student_list.html', {'grades': grades})
+
+#         # else:
+#         #   grades = Grade.objects.filter(user = User.objects.get(username=request.user), sclass=sclass).order_by('student')
+#         #   return render(request, 'school/report_student_list.html', {'grades': grades})
+#         # sclass = request.GET.get('sclass','')
+#         sclass = request.GET.get['sclass']
+#         cursor = connection.cursor()
+#         query = "SELECT sg.id, ss.firstname, ss.lastname, sg.student_id, sg.subject, sg.sclass, sg.examsscore, sg.total100, FIND_IN_SET(total100, (SELECT GROUP_CONCAT(DISTINCT total100 ORDER BY total100 DESC) FROM school_grade WHERE sclass = %s )) AS RANK FROM school_grade sg, school_student ss WHERE sg.sclass = %s and ss.id = sg.student_id order by sg.total100 desc"
+#         # cursor.execute(query, (sclass))
+#         cursor.execute(query, [sclass])
+#         grades = cursor.fetchall()
+#         return render(request, 'school/report_student_list.html', {'grades': grades})

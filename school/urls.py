@@ -13,7 +13,7 @@ urlpatterns = [
 
     url(r'^teacher/$', views.teacher_list, name='teacher_list'),
     url(r'^teacher/(?P<pk>\d+)/detail/$', views.teacher_detail, name='teacher_detail'),
-        url(r'^teacher/new/$', views.teacher_new, name='teacher_new'),
+    url(r'^teacher/new/$', views.teacher_new, name='teacher_new'),
     url(r'^teacher/(?P<pk>\d+)/edit/$', views.teacher_edit, name='teacher_edit'),
 
     url(r'^grade/$', views.grade_list, name='grade_list'),
@@ -24,4 +24,9 @@ urlpatterns = [
     url(r'^grade/new/$', views.grade_new, name='grade_new'),
 
     url(r'^position/$', views.position_list, name='position_list'),
+    url(r'^reporting/$', views.report_student_list, name='report_student_list'),
+
+    url(r'^comment/student/(?P<student_id>\d+)/edit/$', views.comment, name='comment'),
+    url(r'^comment/(?P<student_id>\d+)/detail/$', views.comment_detail, name='comment_detail'),
+    # url(r"^hellopdf$", HelloPDFView.as_view())
 ]

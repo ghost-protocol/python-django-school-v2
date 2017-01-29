@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'', include('school.urls')),
     url(r'^login/$', views.login, {'template_name': 'school/login.html', 'authentication_form': LoginForm}, name='login'),
     url(r'^logout/$', views.logout, {'next_page': '/login'}),
+    # url(r"^hello.pdf$", HelloPDFView.as_view()),
 ]
 

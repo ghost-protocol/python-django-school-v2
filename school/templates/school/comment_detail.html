@@ -1,0 +1,102 @@
+{% extends 'school/base_student.html' %}
+
+{% block content %}
+    <div class="student">
+        <!-- {% if student.published_date %} -->
+            <!-- <div class="date"> -->
+                <!-- {{ post.published_date }} -->
+            <!-- </div> -->
+        <!-- {% endif %} -->
+<!--             <a class="btn btn-default" href=""><span class="glyphicon glyphicon-pencil"></span></a>
+            <p><label>Name: </label>{{ student.firstname }} {{ student.middlename }} {{ student.lastname }}</p>
+            <p><label>Date Of Birth: </label>{{ student.dateofbirth }}</p>
+            <p><label>Gender: </label>{{ student.gender }}</p>
+            <p><label>Residence: </label>{{ student.residence }}</p>
+            <p><label>Address: </label>{{ student.address }}</p>
+            <p><label>Contact: </label>{{ student.contact }}</p>
+            <p><label>Email: </label>{{ student.email }}</p>
+            <p><label>Created Date: </label>{{ student.created}}</p>
+            <p><label>Modified Date: </label>{{ student.modified }}</p>      
+    </div>
+ -->
+    <a class="btn btn-default" href=""><span> pdf</span></a>
+    <a class="btn btn-default" href=""><span class="glyphicon glyphicon-pencil"></span></a>
+    <a class="btn btn-default" href=""><span class="glyphicon glyphicon-trash"></span></a>
+    <p></p>
+    <p></p>
+    <div class="col-md-9">          
+            <table cellpadding="0" cellspacing="0" class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Student</th>
+                        <td>{{ comment.student }}&nbsp;</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Class</th>
+                        <td>{{ comment.sclass }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Total 100</th>
+                        <td>{{ comment.total100 }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Total Average</th>
+                        <td>{{ comment.totalaverage }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Quarter</th>
+                        <td>{{ comment.quarter }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Attendance</th>
+                        <td>{{ comment.attendance }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>OutOf</th>
+                        <td>{{ comment.outof }}&nbsp;</td>
+                    </tr>
+                    
+                    <tr>
+                        <th>Comments Class Teacher</th>
+                        <td>{{ comment.comments_classteacher }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Comments Head Teacher</th>
+                        <td>{{ comment.comments_headteacher }}&nbsp;</td>
+                    </tr>
+
+                    <tr>
+                        <th>Signature</th>
+                        <td height="150" style="border: 1px solid black ;"></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        SCORES
+        <br />
+        {% for grade in grades %}
+        <tr>
+            <td>{{ grade.subject }}</td>
+            <td>{{ grade.sclass }}</td>
+            <td>{{ grade.examsscore }}</td>
+            <td>{{ grade.total100 }}</td>
+        </td>
+        <!-- <td>{{ grade.text|linebreaksbr }}</td> -->
+        </tr>
+        {% endfor %}
+
+                </tbody>
+            </table>
+
+        </div><!-- end col md 9 -->
+
+    </div>
+</div>
+{% endblock %}
